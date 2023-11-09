@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    var currentCount = 850;
+
+/* utility function that take the numeric input and calculates/displays the percentage */
+const getpercentage=(i)=>{
+  /* can not go beyond 100%!!! */
+  var progress = Math.min( ( currentCount / i ).toFixed(2) * 100, 100 );
+  $("#myBar").width( progress + '%' );
+  $("#label").text( progress + '%' );
+}
+
+
+/*
+  when the button is clicked, open 
+  a dialog to set a new target. Call the
+  helper to display re-calculated percentage
+*/
+$('.postbtn').on('click',e=>{
+  let i=prompt('Set the Target',currentCount);
+  if( !isNaN( i ) ){
+      currentCount=i;
+      getpercentage( $('#q10').val() );
+    }
+})
+
+
+
+/* call the helper when the input changes */
+$('#q10').on('change',(e)=>{
+  getpercentage( e.target.value )
+});
+
+/* call the helper at pageload */
+getpercentage( $('#q10').val() );
+</script>
+<style>
+    #myProgress {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  background-color: #ddd;
+}
+
+#myBar {
+  position: absolute;
+  width: 0%;
+  height: 100%;
+  background-color: #4CAF50;
+}
+
+#label {
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+</style>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+Total likes target:<br>
+
+<!-- for simplicity changed this to number input -->
+<input type="number" name="Total" id="q10" value="1000" step=10><br> <br>
+<input class="postbtn" style="width: auto; font-size: 16px;" type="button" value="Set Target">
+
+
+<br><br>
+
+<div id="myProgress">
+  <div id="myBar">
+    <div id="label">&nbsp;0%</div>
+  </div>
+</div>
+</body>
+</html>

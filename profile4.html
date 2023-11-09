@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    .progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: #ddd;
+  margin-top: 10px;
+}
+
+.progress {
+  width: 0%;
+  height: 100%;
+  background-color: #4CAF50;
+  transition: width 0.5s ease-in-out;
+}
+</style>
+</head>
+<body>
+    <button id="btn">Click me</button>
+<div class="progress-bar">
+  <div class="progress"></div>
+</div>
+</body>
+</html>
+<script>
+    const btn = document.getElementById('btn');
+const progress = document.querySelector('.progress');
+
+let count = 0;
+
+btn.addEventListener('click', () => {
+  if (count < 5) {
+    count++;
+    let width = 20;
+    const interval = setInterval(() => {
+      if (width >= 100) {
+        clearInterval(interval);
+      } else {
+        width++;
+        progress.style.width = width + '%';
+      }
+    }, 10);
+  } else {
+    count = 0;
+    progress.style.width = '0%';
+  }
+});
+
+</script>

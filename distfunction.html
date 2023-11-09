@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <button type="submit"></button>
+    </form>
+</body>
+<script>
+    function getdistance(address,addressbypass){
+       geomatrix();
+       async function geomatrix(e){
+        e.preventDefault();
+        axios.get('https://api.distancematrix.ai/maps/api/distancematrix/json',{
+        params:{
+           origins: address,
+            destinations:addressbypass,
+            key:"w5XckH8qUhTKqkdLbfS7QEIcado9J",
+            region:'IN',
+        }
+        }).then(function(response){
+              console.log(response);
+           
+             var distanceinkms=response.data.rows[0].elements[0].distance.text;
+              document.getElementById('output1').innerHTML= distanceinkms;
+              var duration=response.data.rows[0].elements[0].duration.text;
+              document.getElementById('output2').innerHTML= duration;
+              return distanceinkms;
+        }).catch(function(err){
+            
+        });
+       
+    }}
+</script>
+</html>

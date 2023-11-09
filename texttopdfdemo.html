@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+
+<body>
+    </body>
+    <script>
+
+    
+import ConvertApi from 'convertapi-js'
+let convertApi = ConvertApi.auth('your-api-secret')
+let params = convertApi.createParams()
+params.add('File', elFileInput.files[0]);
+let result = await convertApi.convert('txt', 'pdf', params)
+</script>

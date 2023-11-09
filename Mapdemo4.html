@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+    <h4>Source</h4>
+    <div id="output"></div>
+    <div id="output1"></div>
+    <h4>Destination</h4>
+    <div id="output3"></div>
+    <div id="output4"></div>
+    <form id="FormLoc">
+        <label for="input"> Enter source</label>
+        <input type="text"  id="From-address"
+        />
+        <label for="input"> Enter Destination</label>
+          <input type="text"  id="To-address"
+            />
+        <button  type="submit">Submit</button>
+        </form>
+
+</div>
+</body>
+<script>
+    //geocode();
+    //?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=SBkH2705vb6CFnG6hVEwtd5P0TR4C
+
+    document.getElementById("FormLoc").addEventListener("submit", geocode);
+
+  //  var locationForm=document.getElementById('FormLoc');
+  //  locationForm.addEventListener('submit',geocode);
+    function geocode(e){
+        e.preventDefault();
+        var location1=document.getElementById('From-address').value;
+        axios.get('https://api.distancematrix.ai/maps/api/geocode/json',{
+        params:{
+            address: location1,
+            key:"SBkH2705vb6CFnG6hVEwtd5P0TR4C",
+            region:'IN',
+        }
+        }).then(function(response){
+              console.log(response);
+              var lat1=response.data.result[0].geometry.location.lat;
+              var lng1=response.data.result[0].geometry.location.lng;
+        }).catch(function(err){
+            
+        });
+        var location2=document.getElementById('To-address').value;
+        axios.get('https://api.distancematrix.ai/maps/api/geocode/json',{
+        params:{
+            address: location2,
+            key:"SBkH2705vb6CFnG6hVEwtd5P0TR4C",
+            region:'IN',
+        }
+        }).then(function(response){
+              console.log(response);
+              var lat2=response.data.result[0].geometry.location.lat;
+              var lng2=response.data.result[0].geometry.location.lng;
+        }).catch(function(err){
+            
+        });
+    }
+       //Distance matrix
+       document.getElementById("FormLoc").addEventListener("submit", geomatrix);
+       function geomatrix(e){
+        e.preventDefault();
+        axios.get('https://api.distancematrix.ai/maps/api/distancematrix/json',{
+        params:{
+            origins: lat1,lng1,
+            destination:lat2,lng2,
+            key:"17GOrWFA6hkF8QKRu022Luptmk1tU",
+            region:'IN',
+        }
+        }).then(function(response){
+              console.log(response);
+              var distanceinkms=response.data.result[0].geometry.location.lat;
+        }).catch(function(err){
+            
+        });
+    }
+  
+  </script>
+</html>
+

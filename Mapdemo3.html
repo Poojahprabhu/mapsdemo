@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+    <div id="output"></div>
+    <div id="output1"></div>
+    <form id="FormLoc">
+      <label for="From-address">From</label>
+        <input type="text"  id="From-address"
+        />
+        <label for="via1">Via 1</label>
+        <input type="text" id="via1">
+        <label for="via2">Via 2</label>
+        <input type="text" id="via2">
+        <label for="To-address">To</label>
+        <input type="text" id="To-address">
+        <button  type="submit">Submit</button>
+        </form>
+
+</div>
+</body>
+<script>
+    //geocode();
+    //?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=SBkH2705vb6CFnG6hVEwtd5P0TR4C
+
+    document.getElementById("FormLoc").addEventListener("submit", geocode);
+
+  //  var locationForm=document.getElementById('FormLoc');
+  //  locationForm.addEventListener('submit',geocode);
+    function geocode(e){
+        e.preventDefault();
+        var location=document.getElementById('From-address').value;
+        axios.get('https://api.distancematrix.ai/maps/api/geocode/json',{
+        params:{
+            address: location,
+            key:"w5XckH8qUhTKqkdLbfS7QEIcado9J",
+
+        }
+        }).then(function(response){
+              console.log(response);
+              var lat=response.data.result[0].geometry.location.lat;
+              var lng=response.data.result[0].geometry.location.lng;
+              document.getElementById('output').innerHTML= lat;
+              document.getElementById('output1').innerHTML=lng;
+        }).catch(function(err){
+            
+        });
+  
+  
+        
+    }
+  
+  </script>
+</html>
+

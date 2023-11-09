@@ -1,0 +1,144 @@
+
+                                  
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Progress Bar2</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        *{
+            margin: 10;
+            padding: 10;
+            font-family: 'Poppins', sans-serif;
+        }
+        body{
+         
+            display: flex;
+            background: #5995fd;
+        }
+        .container{
+            display: flex;
+            width: 300px;
+            height:auto;
+            padding: 5px;
+            border-radius: 8px;
+            background: #fff;
+            row-gap: 10px;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+        }
+        .circular-progress{
+            position: relative;
+            height: 250px;
+            width: 250px;
+            border-radius: 50%;
+            background: conic-gradient(#16682b 3.6deg, #ededed 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .circular-progress::before{
+            content: "";
+            position: absolute;
+            height: 210px;
+            width: 210px;
+            border-radius: 50%;
+            background-color: #fff;
+        }
+        .progress-value{
+            position: relative;
+            font-size: 40px;
+            font-weight: 600;
+            color: #7d2ae8;
+        }
+        .text{
+            font-size: 30px;
+            font-weight: 500;
+            color: #606060;
+        }
+        
+              </style>
+</head>
+<body>
+    <div class="container">
+        <div class="circular-progress">
+            <span class="progress-value">0%</span>
+        </div>
+        <span class="text">assssbdh</span>
+    </div>
+
+    <div class="container">
+        <div class="circular-progress">
+            <span class="progress-value">0%</span>
+        </div>
+        <span class="text">dsojrizs</span>
+    </div>
+
+    <div class="container">
+        <div class="circular-progress">
+            <span class="progress-value">0%</span>
+        </div>
+        <span class="text">sozjliubds</span>
+    </div>
+
+    <div class="container">
+        <div class="circular-progress">
+            <span class="progress-value">0%</span>
+        </div>
+        <span class="text">sOCJz;ios</span>
+    </div>
+
+    <script>
+        const progressBars = [
+            {
+                circularProgress: document.querySelectorAll(".circular-progress")[0],
+                progressValue: document.querySelectorAll(".progress-value")[0],
+                progressEndValue: 80
+            },
+            {
+                circularProgress: document.querySelectorAll(".circular-progress")[1],
+                progressValue: document.querySelectorAll(".progress-value")[1],
+                progressEndValue: 60
+            },
+            {
+                circularProgress: document.querySelectorAll(".circular-progress")[2],
+                progressValue: document.querySelectorAll(".progress-value")[2],
+                progressEndValue: 40
+            },
+            {
+                circularProgress: document.querySelectorAll(".circular-progress")[3],
+                progressValue: document.querySelectorAll(".progress-value")[3],
+                progressEndValue: 20
+            }
+        ];
+
+        progressBars.forEach(progressBar => {
+            updateprogress(progressBar);
+        });
+
+        function updateprogress(progressBar) {
+            let circularProgress = progressBar.circularProgress,
+                progressValue = progressBar.progressValue;
+
+            let progressStartValue = 0,
+                progressEndValue = progressBar.progressEndValue,
+                speed = 10;
+
+            let progress = setInterval(() => {
+                progressStartValue++;
+
+                progressValue.textContent = `${progressStartValue}%`
+                circularProgress.style.background = `conic-gradient(#404A3D ${progressStartValue * 3.6}deg, #ededed 0deg)`
+
+                if (progressStartValue == progressEndValue) {
+                    clearInterval(progress);
+                }
+            }, speed);
+        }
+    </script>
+</body>
+</html>

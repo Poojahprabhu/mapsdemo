@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+
+<body>
+    <form id="FormLoc">
+        <label for="input"> Enter source</label>
+        <input type="text"  id="From-address1"
+        /><br>
+        <label for="input"> Enter via</label>
+        <input type="text"  id="via-address1"
+        /><br>
+        <label for="input"> Enter Destination</label>
+          <input type="text"  id="To-address"
+            /><br>
+        <button  type="submit">Submit</button>
+        </form>
+        <h4>Distance in kms</h4>
+        <div id="output1"></div>
+        <h4>Duration</h4>
+        <div id="output2"></div>
+      </form>
+</div>
+</body>
+<script>
+       
+       document.getElementById("FormLoc").addEventListener("submit", geomatrix);
+       async function geomatrix(e){
+        var address=document.getElementById('From-address1').value;
+        console.log(address);
+        var via = document.getElementById('via-address1').value;
+        console.log(via);
+        e.preventDefault();
+        axios.get('https://api.distancematrix.ai/maps/api/distancematrix/json',{
+        params:{
+           origins: [address, via].join("|"),
+            destinations:document.getElementById('To-address').value,
+            key:"w5XckH8qUhTKqkdLbfS7QEIcado9J",
+            region:'IN',
+        }
+        }).then(function(response){
+              console.log(response);
+      
+             var distanceinkms=response.data.rows[0].elements[0].distance.text;
+              document.getElementById('output1').innerHTML= distanceinkms;
+              var duration=response.data.rows[0].elements[0].duration.text;
+              document.getElementById('output2').innerHTML= duration;
+        }).catch(function(err){
+            
+        });
+       
+    }
+    
+  </script>
+</html>
+

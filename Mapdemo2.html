@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+
+</head>
+<body>
+ 
+  <form action="" id="FormLoc">
+    <input
+    name="from" placeholder="From" type="text"
+    autocomplete="address-line1" id="from"
+    />
+    <input
+    name="to" placeholder="to" type="text"
+    autocomplete="address-line2" id="to"
+    />
+    <button  type="submit">Submit</button>
+    </form>
+    <script> 
+      const FormEl = document.getElementById("FormLoc");
+      FormLoc.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData= new FormData(FormEl);
+        const data = new URLSearchParams(formData);
+        let from = jason.loads(document.getElementById('from'));
+        let to= jason.loads(document.getElementById('to'));
+        fetch('https://api.distancematrix.ai/maps/api/geocode/json', {
+            method: 'POST', 
+            body: data,
+            key:"w5XckH8qUhTKqkdLbfS7QEIcado9J",
+            region:"in"
+            }).then(res => res.json())
+            .then(data => console.log(data))
+            .catch(error => console.log(error));
+          
+        if (from.value == "" || to.value == "") {
+          alert("Ensure you input a value in both fields!");
+        } else {
+          // perform operation with form input
+      }
+      });
+        </script>
+   
+</body>
+</html>
